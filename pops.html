@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holi Surprise | Bike Taxi</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #fdfdfd;
+            font-family: 'Arial Black', sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* The Animated Button */
+        #celebrateBtn {
+            padding: 20px 40px;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(45deg, #FF0080, #FF8C00);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255, 0, 128, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            z-index: 10;
+        }
+
+        #celebrateBtn:active {
+            transform: scale(0.9);
+        }
+
+        /* The Secret Message */
+        #promoMessage {
+            display: none;
+            opacity: 0;
+            margin-top: 30px;
+            font-size: 40px;
+            color: #333;
+            animation: bounceIn 0.8s forwards;
+        }
+
+        .free-text {
+            display: block;
+            font-size: 60px;
+            background: linear-gradient(to right, #FF0080, #8E2DE2, #40E0D0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 1; }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <button id="celebrateBtn">TAP TO SPLASH COLORS 🎨</button>
+
+        <div id="promoMessage">
+            <p>HOLI HAI!</p>
+            <span class="free-text">YOUR FIRST RIDE IS FREE!</span>
+            <p style="font-size: 18px; font-family: sans-serif; color: #666;">Use Code: <b>HOLIBIKE26</b></p>
+        </div>
+    </div>
+
+    <script>
+        const btn = document.getElementById('celebrateBtn');
+        const msg = document.getElementById('promoMessage');
+
+        btn.addEventListener('click', () => {
+            // 1. Fire the confetti "Pop"
+            var duration = 3 * 1000;
+            var end = Date.now() + duration;
+
+            (function frame() {
+              confetti({
+                particleCount: 7,
+                angle: 60,
+                spread: 55,
+                origin: { x: 0 },
+                colors: ['#FF0080', '#FF8C00', '#40E0D0', '#ffee00']
+              });
+              confetti({
+                particleCount: 7,
+                angle: 120,
+                spread: 55,
+                origin: { x: 1 },
+                colors: ['#FF0080', '#FF8C00', '#40E0D0', '#ffee00']
+              });
+
+              if (Date.now() < end) {
+                requestAnimationFrame(frame);
+              }
+            }());
+
+            // 2. Hide button and show the FREE message
+            btn.style.display = 'none';
+            msg.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
